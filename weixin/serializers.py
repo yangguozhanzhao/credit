@@ -9,23 +9,22 @@ from weixin.models import *
 class QuestionSerializer(serializers.HyperlinkedModelSerializer):
 	class Meta:
 		model = Question
-		fields = ('url','id','types','title')
-
-class OptionSerializer(serializers.HyperlinkedModelSerializer):
-	class Meta:
-		model = Option
-		fields = ('url','id','question','content','answer')
-
-class LawCategorySerializer(serializers.HyperlinkedModelSerializer):
-	class Meta:
-		model = LawCategory
-		fields = ('url','id','name')
+		fields = ('url','id','types','title','option_A','option_B','option_C','option_D','option_E','answer')
 
 
 class LawDocumentSerializer(serializers.HyperlinkedModelSerializer):
 	class Meta:
 		model = LawDocument
 		fields = ('url','id','title','types','doc')
+
+class LawCategorySerializer(serializers.HyperlinkedModelSerializer):
+	law=LawDocumentSerializer(many=True,read_only=True)
+	class Meta:
+		model = LawCategory
+		fields = ('url','id','name','law')
+
+
+
 
 class CaseSerializer(serializers.HyperlinkedModelSerializer):
 	class Meta:

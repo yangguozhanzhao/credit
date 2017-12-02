@@ -94,21 +94,19 @@ class Question(models.Model):
     )
 	types=models.PositiveSmallIntegerField(choices=question_type,verbose_name='题型')
 	title=models.CharField(max_length=200,verbose_name='问题')
+	option_A=models.CharField(max_length=200,verbose_name='A',blank=True,null=True)
+	option_B=models.CharField(max_length=200,verbose_name='B',blank=True,null=True)
+	option_C=models.CharField(max_length=200,verbose_name='C',blank=True,null=True)
+	option_D=models.CharField(max_length=200,verbose_name='D',blank=True,null=True)
+	option_E=models.CharField(max_length=200,verbose_name='E',blank=True,null=True)
+	answer=models.CharField(max_length=10,verbose_name='答案')
+
 	create_at=models.DateTimeField(auto_now_add=True)
 	update_at=models.DateTimeField(auto_now=True)
 
 	def __unicode__(self):
-		return '%s,%s,%s' % (self.types,self.title)
+		return '%s%s' % (self.types,self.title)
 
-class Option(models.Model):
-	question=models.ForeignKey(Question,related_name="question")
-	content=models.CharField(max_length=200)
-	answer=models.BooleanField()
-	create_at=models.DateTimeField(auto_now_add=True)
-	update_at=models.DateTimeField(auto_now=True)
-
-	def __unicode__(self):
-		return '%s,%s,%s' % (self.question,self.content,self.answer)
 
 # 法律法规
 class LawCategory(models.Model):
@@ -116,15 +114,15 @@ class LawCategory(models.Model):
 	create_at=models.DateTimeField(auto_now_add=True)
 	update_at=models.DateTimeField(auto_now=True)
 	def __unicode__(self):
-		return '%s,%s,%s' % (self.name)
+		return '%s' % (self.name)
 class LawDocument(models.Model):
-	types=models.ForeignKey("LawCategory",related_name="law_type")
+	types=models.ForeignKey("LawCategory",related_name="law")
 	title=models.CharField(max_length=200,blank=True)
 	doc=models.FileField(upload_to='docs',blank=True)
 	create_at = models.DateTimeField(auto_now_add=True)
 	update_at = models.DateTimeField(auto_now=True)
 	def __unicode__(self):
-		return '%s'%(self.name)
+		return '%s'%(self.title)
 
 # 案例
 class Case(models.Model):
@@ -143,4 +141,4 @@ class Publicity(models.Model):
 	create_at = models.DateTimeField(auto_now_add=True)
 	update_at = models.DateTimeField(auto_now=True)
 	def __unicode__(self):
-		return '%s'%(self.goods)
+		return '%s'%(self.title)

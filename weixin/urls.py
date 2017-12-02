@@ -13,11 +13,10 @@ from rest_framework_jwt.views import obtain_jwt_token
 router = DefaultRouter()
 router.register(r'users', views.UserViewSet)
 router.register(r'question', views.QuestionViewSet)
-router.register(r'option', views.OptionViewSet)
 router.register(r'law_category', views.LawCategoryViewSet)
 router.register(r'law_document', views.LawDocumentViewSet)
 router.register(r'case', views.CaseViewSet)
-router.register(r'pulicity', views.PublicityViewSet)
+router.register(r'publicity', views.PublicityViewSet)
 
 urlpatterns = [
 	url(r'^', include(router.urls)),

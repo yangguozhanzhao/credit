@@ -88,10 +88,7 @@ class UserAdmin(BaseUserAdmin):
 
 
 class QuestionAdmin(admin.ModelAdmin):
-    list_display = ('id','title','types')
-
-class OptionAdmin(admin.ModelAdmin):
-    list_display = ('id','name','price')
+    list_display = ('id','title','types','answer')
 
 class LawCategoryAdmin(admin.ModelAdmin):
     list_display = ('id','name')

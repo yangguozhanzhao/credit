@@ -95,30 +95,9 @@ class QuestionViewSet(viewsets.ModelViewSet):
 
 	# permission 管理
 	permission_classes=[IsAuthenticated, ]
-	permissionByAction = {}
-	def get_permissions(self):
-		try:
-			return [permission() for permission in self.permissionByAction[self.action]]
-		except KeyError: 
-			return [permission() for permission in self.permission_classes]
-
-class OptionViewSet(viewsets.ModelViewSet):
-	"""
-	create: IsAdminUser
-	read: AllowAny
-	partial_update:IsAdminUser
-	delete: IsAdminUser
-	list: AllowAny
-	update: IsAdminUser
-	"""
-	queryset = Option.objects.all()
-	serializer_class = OptionSerializer
-
-	# permission 管理
-	permission_classes=[IsAdminUser, ]
-	permissionByAction = {'read':[AllowAny,],
+	permissionByAction = {'retrieve':[AllowAny,],
 							'list':[AllowAny,],
-							}
+						}
 	def get_permissions(self):
 		try:
 			return [permission() for permission in self.permissionByAction[self.action]]
@@ -140,7 +119,7 @@ class LawCategoryViewSet(viewsets.ModelViewSet):
 	# permission 管理
 	permission_classes=[IsAdminUser, ]
 	permissionByAction = {'retrieve':[AllowAny,],
-						'list':[AllowAny,],
+							'list':[AllowAny,],
 						}
 	def get_permissions(self):
 		try:
@@ -209,7 +188,8 @@ class PublicityViewSet(viewsets.ModelViewSet):
 
 	# permission 管理
 	permission_classes=[IsAuthenticated, ]
-	permissionByAction = {'list':[IsAdminUser,],
+	permissionByAction = {'list':[AllowAny,],
+							'retrieve':[AllowAny,],
 						}
 	def get_permissions(self):
 		try:
