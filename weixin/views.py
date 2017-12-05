@@ -55,6 +55,19 @@ def login(request,format=None):
 	#print type(serializer.data)
 	return Response(serializer.data)
 
+#法规
+@api_view(['POST'])
+@permission_classes((AllowAny, ))
+def search(request,format=None):
+	results=[]
+	key=request.data["key"]
+	laws= LawDocument.objects.filter(content__icontains=key)
+	for law in laws:
+		serializer=LawDocumentSerializer(law,context={'request':request})
+		results.append(serializer.data)
+	return JsonResponse({'results':results})
+
+
 ## list／create／retrieve／update／partial_update／destroy
 
 class UserViewSet(viewsets.ModelViewSet):
@@ -174,7 +187,7 @@ class CaseViewSet(viewsets.ModelViewSet):
 		except KeyError: 
 			return [permission() for permission in self.permission_classes]
 
-class PublicityViewSet(viewsets.ModelViewSet):
+class QAViewSet(viewsets.ModelViewSet):
 	"""
 	create: IsAuthenticated
 	read: IsAuthenticated
@@ -183,8 +196,78 @@ class PublicityViewSet(viewsets.ModelViewSet):
 	list: IsAdminUser
 	update: IsAuthenticated
 	"""
-	queryset = Publicity.objects.all()
-	serializer_class = PublicitySerializer
+	queryset = QA.objects.all()
+	serializer_class = QASerializer
+
+	# permission 管理
+	permission_classes=[IsAuthenticated, ]
+	permissionByAction = {'list':[AllowAny,],
+							'retrieve':[AllowAny,],
+						}
+	def get_permissions(self):
+		try:
+			return [permission() for permission in self.permissionByAction[self.action]]
+		except KeyError: 
+			return [permission() for permission in self.permission_classes]
+
+class StoryViewSet(viewsets.ModelViewSet):
+	"""
+	create: IsAuthenticated
+	read: IsAuthenticated
+	partial_update:IsAuthenticated
+	delete: IsAuthenticated
+	list: IsAdminUser
+	update: IsAuthenticated
+	"""
+	queryset = Story.objects.all()
+	serializer_class = StorySerializer
+
+	# permission 管理
+	permission_classes=[IsAuthenticated, ]
+	permissionByAction = {'list':[AllowAny,],
+							'retrieve':[AllowAny,],
+						}
+	def get_permissions(self):
+		try:
+			return [permission() for permission in self.permissionByAction[self.action]]
+		except KeyError: 
+			return [permission() for permission in self.permission_classes]
+
+class StoryImageViewSet(viewsets.ModelViewSet):
+	"""
+	create: IsAuthenticated
+	read: IsAuthenticated
+	partial_update:IsAuthenticated
+	delete: IsAuthenticated
+	list: IsAdminUser
+	update: IsAuthenticated
+	"""
+	queryset = StoryImage.objects.all()
+	serializer_class = StoryImageSerializer
+
+	# permission 管理
+	permission_classes=[IsAuthenticated, ]
+	permissionByAction = {'list':[AllowAny,],
+							'retrieve':[AllowAny,],
+						}
+	def get_permissions(self):
+		try:
+			return [permission() for permission in self.permissionByAction[self.action]]
+		except KeyError: 
+			return [permission() for permission in self.permission_classes]
+
+
+class OutletViewSet(viewsets.ModelViewSet):
+	"""
+	create: IsAuthenticated
+	read: IsAuthenticated
+	partial_update:IsAuthenticated
+	delete: IsAuthenticated
+	list: IsAdminUser
+	update: IsAuthenticated
+	"""
+	queryset = Outlet.objects.all()
+	serializer_class = OutletSerializer
 
 	# permission 管理
 	permission_classes=[IsAuthenticated, ]

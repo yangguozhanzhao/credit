@@ -106,6 +106,8 @@ class Question(models.Model):
 
 	def __unicode__(self):
 		return '%s%s' % (self.types,self.title)
+	class Meta:
+		ordering = ['types']
 
 
 # 法律法规
@@ -116,9 +118,9 @@ class LawCategory(models.Model):
 	def __unicode__(self):
 		return '%s' % (self.name)
 class LawDocument(models.Model):
-	types=models.ForeignKey("LawCategory",related_name="law")
-	title=models.CharField(max_length=200,blank=True)
-	doc=models.FileField(upload_to='docs',blank=True)
+	types=models.ForeignKey(LawCategory,related_name="law")
+	title=models.CharField(max_length=200,blank=True,verbose_name="文件名")
+	content=models.TextField(verbose_name="法规内容")
 	create_at = models.DateTimeField(auto_now_add=True)
 	update_at = models.DateTimeField(auto_now=True)
 	def __unicode__(self):
@@ -132,12 +134,38 @@ class Case(models.Model):
 	update_at = models.DateTimeField(auto_now=True)
 	def __unicode__(self):
 		return '%s'%(self.title)
-
 		
-# 宣传
-class Publicity(models.Model):
-	title = models.CharField(max_length=200,verbose_name="标题")
-	content = models.TextField(verbose_name="内容")
+# 征信问答
+class QA(models.Model):
+	title = models.CharField(max_length=200,verbose_name="问答标题")
+	content = models.TextField(verbose_name="问答内容")
+	create_at = models.DateTimeField(auto_now_add=True)
+	update_at = models.DateTimeField(auto_now=True)
+	def __unicode__(self):
+		return '%s'%(self.title)
+
+# 画说征信
+class Story(models.Model):
+	title = models.CharField(max_length=200,verbose_name="故事标题")
+	create_at = models.DateTimeField(auto_now_add=True)
+	update_at = models.DateTimeField(auto_now=True)
+	def __unicode__(self):
+		return '%s'%(self.title)
+class StoryImage(models.Model):
+	image=models.ImageField(upload_to='image', null=True)
+	story=models.ForeignKey(Story,related_name="images")
+	create_at = models.DateTimeField(auto_now_add=True)
+	update_at = models.DateTimeField(auto_now=True)
+	def __unicode__(self):
+		return '%s'%(self.story)
+
+# 网点
+class Outlet(models.Model):
+	title=models.CharField(max_length=100)
+	tel= models.CharField(max_length=20)
+	address= models.CharField(max_length=100)
+	latitude=models.FloatField(default=0.0)
+	longitude=models.FloatField(default=0.0)
 	create_at = models.DateTimeField(auto_now_add=True)
 	update_at = models.DateTimeField(auto_now=True)
 	def __unicode__(self):

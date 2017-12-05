@@ -15,28 +15,46 @@ class QuestionSerializer(serializers.HyperlinkedModelSerializer):
 class LawDocumentSerializer(serializers.HyperlinkedModelSerializer):
 	class Meta:
 		model = LawDocument
-		fields = ('url','id','title','types','doc')
+		fields = ('url','id','title','types','content')
+
+class LawSerializer(serializers.HyperlinkedModelSerializer):
+	class Meta:
+		model = LawDocument
+		fields = ('url','id','title','types')
 
 class LawCategorySerializer(serializers.HyperlinkedModelSerializer):
-	law=LawDocumentSerializer(many=True,read_only=True)
+	law=LawSerializer(many=True,read_only=True)
 	class Meta:
 		model = LawCategory
 		fields = ('url','id','name','law')
-
-
-
 
 class CaseSerializer(serializers.HyperlinkedModelSerializer):
 	class Meta:
 		model = Case
 		fields = ('url','id','title','content')
 
-class PublicitySerializer(serializers.HyperlinkedModelSerializer):
+class QASerializer(serializers.HyperlinkedModelSerializer):
 	class Meta:
-		model = Publicity
+		model = QA
 		fields = ('url','id','title','content')
 
-				
+
+class StoryImageSerializer(serializers.HyperlinkedModelSerializer):
+	class Meta:
+		model = StoryImage
+		fields = ('url','id','image')
+
+class StorySerializer(serializers.HyperlinkedModelSerializer):
+	images=StoryImageSerializer(many=True,read_only=True)
+	class Meta:
+		model = Story
+		fields = ('url','id','title','images')
+
+class OutletSerializer(serializers.HyperlinkedModelSerializer):
+	class Meta:
+		model = Outlet
+		fields = ('url','id','title','tel','address','latitude','longitude')
+			
 class UserSerializer(serializers.HyperlinkedModelSerializer):
 	class Meta:
 		model = MyUser

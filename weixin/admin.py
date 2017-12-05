@@ -94,13 +94,22 @@ class LawCategoryAdmin(admin.ModelAdmin):
     list_display = ('id','name')
 
 class LawDocumentAdmin(admin.ModelAdmin):
-    list_display = ('id','title','types','doc')
+    list_display = ('id','title','types')
 
 class CaseAdmin(admin.ModelAdmin):
     list_display = ('id','title')
 
-class PublicityAdmin(admin.ModelAdmin):
+class QAAdmin(admin.ModelAdmin):
     list_display = ('id','title')
+
+class StoryAdmin(admin.ModelAdmin):
+    list_display = ('id','title')
+
+class StoryImgaeAdmin(admin.ModelAdmin):
+    list_display = ('id','story')
+
+class OutletAdmin(admin.ModelAdmin):
+    list_display = ('id','title','tel','address')
 
 # Now register the new UserAdmin...
 admin.site.register(MyUser, UserAdmin)
@@ -108,7 +117,11 @@ admin.site.register(Question, QuestionAdmin)
 admin.site.register(LawCategory, LawCategoryAdmin)
 admin.site.register(LawDocument, LawDocumentAdmin)
 admin.site.register(Case, CaseAdmin)
-admin.site.register(Publicity, PublicityAdmin)
+admin.site.register(QA, QAAdmin)
+admin.site.register(Story,StoryAdmin)
+admin.site.register(StoryImage,StoryImgaeAdmin)
+admin.site.register(Outlet,OutletAdmin)
+
 
 # ... and, since we're not using Django's built-in permissions,
 # unregister the Group model from admin.
