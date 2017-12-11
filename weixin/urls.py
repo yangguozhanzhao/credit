@@ -20,6 +20,8 @@ router.register(r'qa', views.QAViewSet)
 router.register(r'story', views.StoryViewSet)
 router.register(r'story_image', views.StoryImageViewSet)
 router.register(r'outlet', views.OutletViewSet)
+router.register(r'guide_category', views.GuideCategoryViewSet)
+router.register(r'guide', views.GuideViewSet)
 
 
 urlpatterns = [

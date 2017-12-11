@@ -111,6 +111,12 @@ class StoryImgaeAdmin(admin.ModelAdmin):
 class OutletAdmin(admin.ModelAdmin):
     list_display = ('id','title','tel','address')
 
+class GuideCategoryAdmin(admin.ModelAdmin):
+    list_display = ('id','name')
+
+class GuideAdmin(admin.ModelAdmin):
+    list_display = ('id','title','category')
+
 # Now register the new UserAdmin...
 admin.site.register(MyUser, UserAdmin)
 admin.site.register(Question, QuestionAdmin)
@@ -121,6 +127,8 @@ admin.site.register(QA, QAAdmin)
 admin.site.register(Story,StoryAdmin)
 admin.site.register(StoryImage,StoryImgaeAdmin)
 admin.site.register(Outlet,OutletAdmin)
+admin.site.register(GuideCategory, GuideCategoryAdmin)
+admin.site.register(Guide, GuideAdmin)
 
 
 # ... and, since we're not using Django's built-in permissions,

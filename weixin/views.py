@@ -279,3 +279,49 @@ class OutletViewSet(viewsets.ModelViewSet):
 			return [permission() for permission in self.permissionByAction[self.action]]
 		except KeyError: 
 			return [permission() for permission in self.permission_classes]
+
+class GuideCategoryViewSet(viewsets.ModelViewSet):
+	"""
+	create: IsAdminUser
+	read: AllowAny
+	partial_update:IsAdminUser
+	delete: IsAdminUser
+	list: AllowAny
+	update: IsAdminUser
+	"""
+	queryset = GuideCategory.objects.all()
+	serializer_class = GuideCategorySerializer
+
+	# permission 管理
+	permission_classes=[IsAdminUser, ]
+	permissionByAction = {'retrieve':[AllowAny,],
+							'list':[AllowAny,],
+						}
+	def get_permissions(self):
+		try:
+			return [permission() for permission in self.permissionByAction[self.action]]
+		except KeyError: 
+			return [permission() for permission in self.permission_classes]
+
+class GuideViewSet(viewsets.ModelViewSet):
+	"""
+	create: IsAdminUser
+	read: AllowAny
+	partial_update:IsAdminUser
+	delete: IsAdminUser
+	list: AllowAny
+	update: IsAdminUser
+	"""
+	queryset = Guide.objects.all()
+	serializer_class = GuideSerializer
+
+	# permission 管理
+	permission_classes=[IsAdminUser, ]
+	permissionByAction = {'retrieve':[AllowAny,],
+							'list':[AllowAny,],
+						}
+	def get_permissions(self):
+		try:
+			return [permission() for permission in self.permissionByAction[self.action]]
+		except KeyError: 
+			return [permission() for permission in self.permission_classes]

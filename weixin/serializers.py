@@ -54,6 +54,17 @@ class OutletSerializer(serializers.HyperlinkedModelSerializer):
 	class Meta:
 		model = Outlet
 		fields = ('url','id','title','tel','address','latitude','longitude')
+
+class GuideSerializer(serializers.HyperlinkedModelSerializer):
+	class Meta:
+		model = Guide
+		fields = ('url','id','title','category','doc')
+
+class GuideCategorySerializer(serializers.HyperlinkedModelSerializer):
+	guide=GuideSerializer(many=True,read_only=True)
+	class Meta:
+		model = GuideCategory
+		fields = ('url','id','name','guide')
 			
 class UserSerializer(serializers.HyperlinkedModelSerializer):
 	class Meta:
@@ -68,3 +79,4 @@ class UserSerializer(serializers.HyperlinkedModelSerializer):
 		user.set_password("1234pttk")
 		user.save()
 		return user
+

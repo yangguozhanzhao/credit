@@ -170,3 +170,21 @@ class Outlet(models.Model):
 	update_at = models.DateTimeField(auto_now=True)
 	def __unicode__(self):
 		return '%s'%(self.title)
+
+# 办事指南
+class GuideCategory(models.Model):
+	name=models.CharField(max_length=100)
+	create_at=models.DateTimeField(auto_now_add=True)
+	update_at=models.DateTimeField(auto_now=True)
+	def __unicode__(self):
+		return '%s'%(self.name)
+
+class Guide(models.Model):
+	title = models.CharField(max_length=100,verbose_name="办事指南标题")
+	category=models.ForeignKey(GuideCategory,related_name="guide")
+	doc=models.FileField(upload_to='docs')
+	create_at = models.DateTimeField(auto_now_add=True)
+	update_at = models.DateTimeField(auto_now=True)
+	def __unicode__(self):
+		return '%s'%(self.title)
+
