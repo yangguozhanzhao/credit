@@ -26,8 +26,8 @@ import string
 import time
 
 
-APPID="wx792afb48d3249315"
-APPSECRET="8145f1c123ddef11dd514f69314e7032"
+APPID="wxc20c59bc2b4f4ad0"
+APPSECRET="773c6c878ebc365f4ab1e285a84413d5"
 
 # code换取openId登录
 @api_view(['POST'])
