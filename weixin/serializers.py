@@ -11,16 +11,15 @@ class QuestionSerializer(serializers.HyperlinkedModelSerializer):
 		model = Question
 		fields = ('url','id','types','title','option_A','option_B','option_C','option_D','option_E','answer')
 
-
 class LawDocumentSerializer(serializers.HyperlinkedModelSerializer):
 	class Meta:
 		model = LawDocument
-		fields = ('url','id','title','types','content')
+		fields = ('url','id','title','types','content','doc')
 
 class LawSerializer(serializers.HyperlinkedModelSerializer):
 	class Meta:
 		model = LawDocument
-		fields = ('url','id','title','types')
+		fields = ('url','id','title','types','doc')
 
 class LawCategorySerializer(serializers.HyperlinkedModelSerializer):
 	law=LawSerializer(many=True,read_only=True)

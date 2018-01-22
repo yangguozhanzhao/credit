@@ -61,7 +61,7 @@ def login(request,format=None):
 def search(request,format=None):
 	results=[]
 	key=request.data["key"]
-	laws= LawDocument.objects.filter(content__icontains=key)
+	laws= LawDocument.objects.filter(title__icontains=key)
 	for law in laws:
 		serializer=LawDocumentSerializer(law,context={'request':request})
 		results.append(serializer.data)

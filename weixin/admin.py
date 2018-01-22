@@ -94,7 +94,7 @@ class LawCategoryAdmin(admin.ModelAdmin):
     list_display = ('id','name')
 
 class LawDocumentAdmin(admin.ModelAdmin):
-    list_display = ('id','title','types')
+    list_display = ('id','title','types','doc')
 
 class CaseAdmin(admin.ModelAdmin):
     list_display = ('id','title')

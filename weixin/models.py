@@ -93,7 +93,7 @@ class Question(models.Model):
          (3, u'判断'),
     )
 	types=models.PositiveSmallIntegerField(choices=question_type,verbose_name='题型')
-	title=models.CharField(max_length=200,verbose_name='问题')
+	title=models.CharField(max_length=400,verbose_name='问题')
 	option_A=models.CharField(max_length=200,verbose_name='A',blank=True,null=True)
 	option_B=models.CharField(max_length=200,verbose_name='B',blank=True,null=True)
 	option_C=models.CharField(max_length=200,verbose_name='C',blank=True,null=True)
@@ -121,6 +121,7 @@ class LawDocument(models.Model):
 	types=models.ForeignKey(LawCategory,related_name="law")
 	title=models.CharField(max_length=200,blank=True,verbose_name="文件名")
 	content=models.TextField(verbose_name="法规内容")
+	doc=models.FileField(upload_to='laws',blank=True)
 	create_at = models.DateTimeField(auto_now_add=True)
 	update_at = models.DateTimeField(auto_now=True)
 	def __unicode__(self):
