@@ -29,6 +29,7 @@ def main():
 			type_num=2
 		else :
 			type_num=3
+		answer=answer.replace('\r\n','')
 		Question.objects.create(types=type_num,title=title,option_A=option_A,option_B=option_B,\
 			option_C=option_C,option_D=option_D,option_E=option_E,answer=answer)
 	f.close()
