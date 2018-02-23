@@ -14,7 +14,7 @@ https://docs.djangoproject.com/en/1.11/ref/settings/
 import os
 import socket
 # 开发环境
-if socket.gethostname()=="yzmac.lan" or socket.gethostname()=="yzmac.local": 
+if socket.gethostname()=="yzmac" or socket.gethostname()=="yzmac.local": 
     
     DEBUG = True
     # MySql

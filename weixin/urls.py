@@ -22,6 +22,7 @@ router.register(r'story_image', views.StoryImageViewSet)
 router.register(r'outlet', views.OutletViewSet)
 router.register(r'guide_category', views.GuideCategoryViewSet)
 router.register(r'guide', views.GuideViewSet)
+router.register(r'feedback', views.FeedbackViewSet)
 
 
 urlpatterns = [

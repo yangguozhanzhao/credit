@@ -325,3 +325,26 @@ class GuideViewSet(viewsets.ModelViewSet):
 			return [permission() for permission in self.permissionByAction[self.action]]
 		except KeyError: 
 			return [permission() for permission in self.permission_classes]
+
+class FeedbackViewSet(viewsets.ModelViewSet):
+	"""
+	create: IsAdminUser
+	read: AllowAny
+	partial_update:IsAdminUser
+	delete: IsAdminUser
+	list: AllowAny
+	update: IsAdminUser
+	"""
+	queryset = Feedback.objects.all()
+	serializer_class = FeedbackSerializer
+
+	# permission 管理
+	permission_classes=[IsAdminUser, ]
+	permissionByAction = {'create':[AllowAny,],
+	'retrieve':[AllowAny,],
+						}
+	def get_permissions(self):
+		try:
+			return [permission() for permission in self.permissionByAction[self.action]]
+		except KeyError: 
+			return [permission() for permission in self.permission_classes]

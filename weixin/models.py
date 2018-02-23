@@ -189,3 +189,14 @@ class Guide(models.Model):
 	def __unicode__(self):
 		return '%s'%(self.title)
 
+# 意见反馈
+class Feedback(models.Model):
+	title = models.CharField(max_length=50,verbose_name="问题反馈标题")
+	content=models.CharField(max_length=500)
+	creater=models.ForeignKey(MyUser,related_name="feedback")
+	create_at = models.DateTimeField(auto_now_add=True)
+	update_at = models.DateTimeField(auto_now=True)
+	def __unicode__(self):
+		return '%s'%(self.title)
+
+

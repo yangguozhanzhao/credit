@@ -79,3 +79,11 @@ class UserSerializer(serializers.HyperlinkedModelSerializer):
 		user.save()
 		return user
 
+class FeedbackSerializer(serializers.HyperlinkedModelSerializer):
+	user=LawSerializer(many=True,read_only=True)
+	class Meta:
+		model = Feedback
+		# 直接在fields里面写related_name即可
+		fields = '__all__'
+
+
