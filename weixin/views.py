@@ -29,8 +29,6 @@ import time
 APPID="wxc20c59bc2b4f4ad0"
 APPSECRET="773c6c878ebc365f4ab1e285a84413d5"
 
-EXAM_SWITCH=False
-
 # code换取openId登录
 @api_view(['POST'])
 def login(request,format=None):
@@ -68,17 +66,6 @@ def search(request,format=None):
 		serializer=LawDocumentSerializer(law,context={'request':request})
 		results.append(serializer.data)
 	return JsonResponse({'results':results})
-
-@api_view(['GET','POST'])
-@permission_classes((IsAuthenticated,))
-def is_exam(request,format=None):
-	global EXAM_SWITCH
-	if request.method == 'GET':
-		return JsonResponse({'is_exam':EXAM_SWITCH})
-	elif request.method == 'POST':
-		EXAM_SWITCH = request.data['is_exam']
-		return JsonResponse({'is_exam':EXAM_SWITCH})
-
 
 
 ## list／create／retrieve／update／partial_update／destroy

@@ -114,8 +114,7 @@ class Question(models.Model):
 		return '%s%s' % (self.types,self.title)
 	class Meta:
 		ordering = ['types']
-
-# 考试成绩
+# 考试成绩，id为1的考试成绩作为是否打开考试功能
 class Exam(models.Model):
 	real_name=models.CharField(max_length=100,blank=True,null=True)
 	employer=models.CharField(max_length=100,blank=True,null=True)

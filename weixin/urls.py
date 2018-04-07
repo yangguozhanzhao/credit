@@ -32,5 +32,4 @@ urlpatterns = [
     url(r'^token/', obtain_jwt_token),
     url(r'^login/',views.login),
     url(r'^search/',views.search),
-    url(r'^is_exam/',views.is_exam),
 ]
