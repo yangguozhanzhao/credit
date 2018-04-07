@@ -364,7 +364,7 @@ class ExamViewSet(viewsets.ModelViewSet):
 
 	# permission 管理
 	permission_classes=[IsAuthenticated, ]
-	permissionByAction = {}
+	permissionByAction = {'retrieve':[AllowAny,],}
 	def get_permissions(self):
 		try:
 			return [permission() for permission in self.permissionByAction[self.action]]
