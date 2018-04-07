@@ -45,11 +45,17 @@ class MyUser(AbstractBaseUser):
 		max_length=50,
 		unique=True,
 	)
-	name=models.CharField(max_length=100)
-	gender=models.IntegerField(default=1)
-	avatar = models.URLField()
+	name=models.CharField(max_length=100,blank=True,null=True)
+	gender=models.IntegerField(default=1,blank=True,null=True)
+	avatar = models.URLField(blank=True,null=True)
 	create_at=models.DateTimeField(auto_now_add=True)
 	update_at=models.DateTimeField(auto_now=True)
+
+	#上传考试结果需要
+	real_name=models.CharField(max_length=100,blank=True,null=True)
+	employer=models.CharField(max_length=100,blank=True,null=True)
+	job_number=models.CharField(max_length=100,blank=True,null=True)
+	is_invigilator=models.BooleanField(default=False)
 	
 	is_active = models.BooleanField(default=True)
 	is_admin = models.BooleanField(default=False)
@@ -108,6 +114,16 @@ class Question(models.Model):
 		return '%s%s' % (self.types,self.title)
 	class Meta:
 		ordering = ['types']
+
+# 考试成绩
+class Exam(models.Model):
+	real_name=models.CharField(max_length=100,blank=True,null=True)
+	employer=models.CharField(max_length=100,blank=True,null=True)
+	job_number=models.CharField(max_length=100,blank=True,null=True)
+	result=models.IntegerField(blank=True,null=True)
+
+	create_at=models.DateTimeField(auto_now_add=True)
+	update_at=models.DateTimeField(auto_now=True)
 
 
 # 法律法规

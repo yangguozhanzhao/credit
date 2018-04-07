@@ -29,6 +29,8 @@ import time
 APPID="wxc20c59bc2b4f4ad0"
 APPSECRET="773c6c878ebc365f4ab1e285a84413d5"
 
+EXAM_SWITCH=False
+
 # code换取openId登录
 @api_view(['POST'])
 def login(request,format=None):
@@ -37,7 +39,7 @@ def login(request,format=None):
 	#code -> openid
 	keyURL= 'https://api.weixin.qq.com/sns/jscode2session?appid='+APPID+'&secret='+APPSECRET+'&js_code='+code+'&grant_type=authorization_code'
 	r = requests.post(keyURL).json()
-	#print "r:",r
+	print "r:",r
 
 	openId= r['openid']	
 	user = MyUser.objects.filter(openId=openId)
@@ -67,6 +69,17 @@ def search(request,format=None):
 		results.append(serializer.data)
 	return JsonResponse({'results':results})
 
+@api_view(['GET','POST'])
+@permission_classes((IsAuthenticated,))
+def is_exam(request,format=None):
+	global EXAM_SWITCH
+	if request.method == 'GET':
+		return JsonResponse({'is_exam':EXAM_SWITCH})
+	elif request.method == 'POST':
+		EXAM_SWITCH = request.data['is_exam']
+		return JsonResponse({'is_exam':EXAM_SWITCH})
+
+
 
 ## list／create／retrieve／update／partial_update／destroy
 
@@ -85,7 +98,7 @@ class UserViewSet(viewsets.ModelViewSet):
 	# permission 管理
 	permission_classes=[IsAuthenticated, ]
 	permissionByAction = {'create':[AllowAny,],
-					#'partial_update':[AllowAny,],
+	'update':[AllowAny,],
 						}
 	def get_permissions(self):
 		try:
@@ -343,6 +356,28 @@ class FeedbackViewSet(viewsets.ModelViewSet):
 	permissionByAction = {'create':[AllowAny,],
 	'retrieve':[AllowAny,],
 						}
+	def get_permissions(self):
+		try:
+			return [permission() for permission in self.permissionByAction[self.action]]
+		except KeyError: 
+			return [permission() for permission in self.permission_classes]
+
+
+class ExamViewSet(viewsets.ModelViewSet):
+	"""
+	create: IsAdminUser
+	read: AllowAny
+	partial_update:IsAdminUser
+	delete: IsAdminUser
+	list: AllowAny
+	update: IsAdminUser
+	"""
+	queryset = Exam.objects.all()
+	serializer_class = ExamSerializer
+
+	# permission 管理
+	permission_classes=[IsAuthenticated, ]
+	permissionByAction = {}
 	def get_permissions(self):
 		try:
 			return [permission() for permission in self.permissionByAction[self.action]]

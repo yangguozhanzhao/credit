@@ -50,7 +50,7 @@ class UserChangeForm(forms.ModelForm):
 
     class Meta:
         model = MyUser
-        fields = ('openId', 'password', 'name', 'is_active', 'is_admin','avatar')
+        fields = ('openId', 'password', 'real_name', 'is_invigilator', 'is_admin')
 
     def clean_password(self):
         # Regardless of what the user provides, return the initial value.
@@ -67,11 +67,11 @@ class UserAdmin(BaseUserAdmin):
     # The fields to be used in displaying the User model.
     # These override the definitions on the base UserAdmin
     # that reference specific fields on auth.User.
-    list_display = ('openId', 'name', 'is_admin')
+    list_display = ('openId', 'real_name', 'is_invigilator')
     list_filter = ('is_admin',)
     fieldsets = (
         (None, {'fields': ('openId', 'password')}),
-        ('Personal info', {'fields': ('name','avatar')}),
+        ('Personal info', {'fields': ('real_name','is_invigilator')}),
         ('Permissions', {'fields': ('is_admin',)}),
     )
     # add_fieldsets is not a standard ModelAdmin attribute. UserAdmin
@@ -120,6 +120,8 @@ class GuideAdmin(admin.ModelAdmin):
 class FeedbackAdmin(admin.ModelAdmin):
     list_display = ('id','title','content')
 
+class ExamAdmin(admin.ModelAdmin):
+    list_display = ('id','result','create_at')
 
 # Now register the new UserAdmin...
 admin.site.register(MyUser, UserAdmin)
@@ -134,6 +136,7 @@ admin.site.register(Outlet,OutletAdmin)
 admin.site.register(GuideCategory, GuideCategoryAdmin)
 admin.site.register(Guide, GuideAdmin)
 admin.site.register(Feedback, FeedbackAdmin)
+admin.site.register(Exam, ExamAdmin)
 
 
 # ... and, since we're not using Django's built-in permissions,

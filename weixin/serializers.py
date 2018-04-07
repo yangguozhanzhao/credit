@@ -69,7 +69,7 @@ class UserSerializer(serializers.HyperlinkedModelSerializer):
 	class Meta:
 		model = MyUser
 		# 直接在fields里面写related_name即可
-		fields = ('url','id','openId', 'name','gender','avatar')
+		fields = ('url','id','openId', 'name','gender','avatar','real_name','employer','job_number','is_invigilator')
 
 	def create(self, validated_data):
 		user = MyUser(
@@ -80,10 +80,19 @@ class UserSerializer(serializers.HyperlinkedModelSerializer):
 		return user
 
 class FeedbackSerializer(serializers.HyperlinkedModelSerializer):
-	user=LawSerializer(many=True,read_only=True)
+	user=UserSerializer(many=True,read_only=True)
 	class Meta:
 		model = Feedback
 		# 直接在fields里面写related_name即可
 		fields = '__all__'
+
+
+class ExamSerializer(serializers.HyperlinkedModelSerializer):
+	class Meta:
+		model = Exam
+		# 直接在fields里面写related_name即可
+		fields = '__all__'
+
+		
 
 
